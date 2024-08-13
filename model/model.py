@@ -6,12 +6,12 @@ from langchain_core.prompts import PromptTemplate
 from langchain_community.llms import Ollama
 from langchain.chains import RetrievalQA
 
-db = chromadb.PersistentClient(path="./db")
+db = chromadb.PersistentClient(path="../db")
 vectorstore = Chroma(
     client=db,
     collection_name="recipes",
     embedding_function=OpenAIEmbeddings(api_key=os.getenv("OPENAI_KEY")),
-    persist_directory="./db"
+    persist_directory="../db"
 )
 
 template = """book:
@@ -27,16 +27,19 @@ Include the list of ingredients, step-by-step instructions, and any tips or vari
 Statements like "according to the book" or similar in your answers should be avoided, skip referencing book in general
 """
 
-QA_CHAIN_PROMPT = PromptTemplate(
+query_text = "What is a good side dish or salad for a cheese sandwich?"
+
+prompt = PromptTemplate(
     input_variables=["context", "question"],
     template=template,
 )
 
-llm = Ollama(model="llama2:7b")
-qa_chain = RetrievalQA.from_chain_type(
-    llm,
+model = Ollama(model="llama3")
+
+chain = RetrievalQA.from_chain_type(
+    model,
     retriever=vectorstore.as_retriever(),
-    chain_type_kwargs={"prompt": QA_CHAIN_PROMPT},
+    chain_type_kwargs={"prompt": prompt},
 )
 
-print(qa_chain({"query": "What is a good side dish or salad for a cheese sandwich?"}))
+print(chain.invoke({"query": query_text}))
