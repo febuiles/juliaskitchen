@@ -60,7 +60,7 @@ async def submit(request: Request, sandwich_id: int = Form(...)):
     return templates.TemplateResponse("index.html", {"request": request, "sandwiches": SANDWICHES, "sandwich_selected": sandwich_name, "answer": format_answer(answer), "submitted": True})
 
 def fetch_answer(id: int) -> str:
-    url = "https://julias-prep-station.internal/generate"
+    url = "http://julias-prep-station.flycast/generate"
     data = { "id": id }
     headers = {"Content-type": "application/json"}
 
