@@ -16,19 +16,26 @@
       </div>
     </section>
 
-    <div class="max-w-md mx-auto text-center">
-      <form action="/sides" method="post">
+    <!-- <div class="max-w-md mx-auto text-center"> -->
+    <div class="w-full mx-auto text-center">
+
+      <form action="/" method="post">
         <label for="sandwich" class="block">Select a Sandwich:</label>
-        <select name="sandwich" id="sandwich" class="select select-bordered">
+        <select name="id" id="sandwich" class="select select-bordered">
           {% for sandwich in sandwiches %}
-          <option value="{{ sandwich }}">{{ sandwich }}</option>
+          <option value="{{ loop.index0 }}">{{ sandwich }}</option>
           {% endfor %}
         </select>
         <button type="submit" class="btn btn-primary">Submit</button>
-        {% if submitted %}
-        <p>You selected: {{ sandwich_selected }}</p>
-        {% endif %}
       </form>
+    </div>
+
+
+    <div class="prose w-3/4 mx-auto py-20">
+      {% if submitted %}
+      <h2>{{ sandwich_selected }}</h2>
+      <p>{{ answer | safe }}</p>
+      {% endif %}
     </div>
   </body>
 </html>
