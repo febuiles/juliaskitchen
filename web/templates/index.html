@@ -21,7 +21,7 @@
 
       <form action="/" method="post">
         <label for="sandwich" class="block">Select a Sandwich:</label>
-        <select name="id" id="sandwich" class="select select-bordered">
+        <select name="sandwich_id" id="sandwich" class="select select-bordered">
           {% for sandwich in sandwiches %}
           <option value="{{ loop.index0 }}">{{ sandwich }}</option>
           {% endfor %}
