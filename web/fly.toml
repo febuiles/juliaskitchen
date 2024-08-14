@@ -1,17 +1,12 @@
-# fly.toml app configuration file generated for julias-prep-station on 2024-08-14T15:51:35+02:00
+# fly.toml app configuration file generated for julias-kitchen on 2024-08-14T16:13:15+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'julias-prep-station'
+app = 'julias-kitchen'
 primary_region = 'ord'
 
 [build]
-
-[[mounts]]
-  source = 'juliamodels'
-  destination = '/app/models'
-  initial_size = '50gb'
 
 [http_service]
   internal_port = 8000
@@ -22,7 +17,6 @@ primary_region = 'ord'
   processes = ['app']
 
 [[vm]]
-  size = 'a100-40gb'
-  memory = '32gb'
-  cpu_kind = 'performance'
-  cpus = 8
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
